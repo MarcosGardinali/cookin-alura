@@ -18,10 +18,10 @@ export default {
         adicionarIngrediente(ingrediente: string) {
             this.ingredientes.push(ingrediente)
         },
-        removerIngrediente(ingrediente: string){
+        removerIngrediente(ingrediente: string) {
             this.ingredientes = this.ingredientes.filter(ilista => ingrediente !== ilista)
         },
-        navegar(pagina: Pagina){
+        navegar(pagina: Pagina) {
             this.conteudo = pagina
         }
     }
@@ -32,13 +32,20 @@ export default {
     <main class="conteudo-principal">
         <SuaLista :ingredientes="ingredientes" />
 
-        <SelecionarIngredientes v-if="conteudo === 'SelecionarIngredientes'"
-            @adicionar-ingrediente="adicionarIngrediente"
-            @remover-ingrediente="removerIngrediente"
-            @buscar-receitas="navegar('MostrarReceitas')"
-        />
+        <KeepAlive include="SelecionarIngredientes">
+            <!--O keepalive serve justamente para preservar o estado dos componentes que colocamos dentro dele. Funciona bem com v-if e v-else-->
+            <!--Ele guarda o estado dos componentes em cache-->
+            <SelecionarIngredientes v-if="conteudo === 'SelecionarIngredientes'"
+                @adicionar-ingrediente="adicionarIngrediente" 
+                @remover-ingrediente="removerIngrediente"
+                @buscar-receitas="navegar('MostrarReceitas')" 
+            />
 
-        <MostrarReceitas v-else-if="conteudo === 'MostrarReceitas'"/>
+            <MostrarReceitas v-else-if="conteudo === 'MostrarReceitas'" 
+                :ingredientes="ingredientes"
+                @selecionar-ingredientes="navegar('SelecionarIngredientes')" />
+        </KeepAlive>
+
     </main>
 </template>
 

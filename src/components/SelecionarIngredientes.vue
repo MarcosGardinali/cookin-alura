@@ -5,6 +5,7 @@ import CardCategoria from './CardCategoria.vue';
 import BotaoPrincipal from './BotaoPrincipal.vue';
 
 export default {
+    name: 'SelecionarIngredientes',
     //A lista de categorias do data inicia vazia
     //As propriedades dentro do data são reativas, assim caso tenham uma mudança elas atualizam automaticamente
     data() {
