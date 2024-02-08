@@ -18,14 +18,14 @@ export default {
     async created() {
         const receitasEncontradas = await obterReceitas();
 
-        this.receitas = this.receitas.filter((receita) => {
+        this.receitas = receitasEncontradas.filter((receita) => {
             const possoFazerReceita = itensDeLista1EstaoEmLista2(receita.ingredientes, this.ingredientes);
 
             return possoFazerReceita
         });
     },
     components: { ListaReceitas, BotaoPrincipal },
-    emits: ['SelecionarIngredientes']
+    emits: ['editarReceitas']
 }
 </script>
 
@@ -37,7 +37,7 @@ export default {
 
     <img v-else src="../assets/images/sem-receitas.png" alt="Nenhuma Receita encontrada">
 
-    <BotaoPrincipal :texto="'Editar'" @click="$emit('SelecionarIngredientes')" />
+    <BotaoPrincipal :texto="'Editar'" @click="$emit('editarReceitas')" />
 </template>
 
 <style scoped></style>

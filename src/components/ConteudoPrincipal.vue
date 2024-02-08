@@ -9,7 +9,7 @@ type Pagina = 'SelecionarIngredientes' | 'MostrarReceitas'
 export default {
     data() {
         return {
-            ingredientes: [] as String[],
+            ingredientes: [] as string[],
             conteudo: 'SelecionarIngredientes' as Pagina
         };
     },
@@ -32,7 +32,6 @@ export default {
     <main class="conteudo-principal">
         <SuaLista :ingredientes="ingredientes" />
 
-        <KeepAlive include="SelecionarIngredientes">
             <!--O keepalive serve justamente para preservar o estado dos componentes que colocamos dentro dele. Funciona bem com v-if e v-else-->
             <!--Ele guarda o estado dos componentes em cache-->
             <SelecionarIngredientes v-if="conteudo === 'SelecionarIngredientes'"
@@ -43,8 +42,8 @@ export default {
 
             <MostrarReceitas v-else-if="conteudo === 'MostrarReceitas'" 
                 :ingredientes="ingredientes"
-                @selecionar-ingredientes="navegar('SelecionarIngredientes')" />
-        </KeepAlive>
+                @editar-receitas="navegar('SelecionarIngredientes')" 
+            />
 
     </main>
 </template>
